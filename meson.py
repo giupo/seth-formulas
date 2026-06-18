@@ -6,7 +6,7 @@ import stat
 class MesonFormula(Formula):
     name = "meson"
     latest = "1.11.1"
-    # dependencies = []
+    dependencies = ["python"]
     # build_dependencies = []
     build_system = "custom"
     
