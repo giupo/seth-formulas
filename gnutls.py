@@ -4,7 +4,7 @@ from seth.formula import Formula
 class GnutlsFormula(Formula):
     name = "gnutls"
     latest = "3.8.8"
-    dependencies = ["nettle>=3.9", "libtasn1>=4.19"]
+    dependencies = ["nettle>=3.9", "libtasn1>=4.19", "brotli"]
 
     versions = {
         "3.8.8": {
