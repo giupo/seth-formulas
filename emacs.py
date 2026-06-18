@@ -4,7 +4,8 @@ from seth.formula import Formula
 class EmacsFormula(Formula):
     name = "emacs"
     latest = "30.2"
-    dependencies = ["ncurses", "libxml2", "gnutls", "zlib", "gcc"]
+    # gcc is among deps 'case it's needed for libgccjit
+    dependencies = ["ncurses", "libxml2", "gnutls", "zlib", "gcc", "imagemagick"]
     build_dependencies = ["pkgconfig"]
 
     versions = {
@@ -23,11 +24,15 @@ class EmacsFormula(Formula):
             "--without-gsettings",
             "--without-dbus",
             "--without-selinux",
-            "--without-imagemagick",
+            "--with-imagemagick",
             "--with-gnutls",            # TLS for package.el / url.el
             "--with-xml2",              # libxml2
             "--with-zlib",
             "--with-ncurses",           # terminal UI (ncursesw via PKG_CONFIG_PATH)
             "--disable-build-details",  # reproducible build (no timestamp)
             "--with-native-compilation=aot", 
+            "--with-libunistring",
+            "--with-threads",
+            "--with-sqlite3",
+            "--with-tree-sitter",
         ]
