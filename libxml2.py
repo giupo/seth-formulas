@@ -3,13 +3,13 @@ from seth.formula import Formula
 
 class Libxml2Formula(Formula):
     name = "libxml2"
-    latest = "2.12.9"
+    latest = "2.15.3"
     dependencies = ["zlib"]
 
     versions = {
         "2.15.3": {
             "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz",
-            "sha256": "094748114ca5e905e8a0b096c816827e530ca7784cc5565f47dffd26e586977a"
+            "sha256": "78262a6e7ac170d6528ebfe2efccdf220191a5af6a6cd61ea4a9a9a5042c7a07"
         },
         "2.12.9": {
             "url": "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.9.tar.xz",
