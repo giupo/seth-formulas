@@ -7,6 +7,10 @@ class Libxml2Formula(Formula):
     dependencies = ["zlib"]
 
     versions = {
+        "2.15.3": {
+            "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.3.tar.xz",
+            "sha256": "094748114ca5e905e8a0b096c816827e530ca7784cc5565f47dffd26e586977a"
+        },
         "2.12.9": {
             "url": "https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.9.tar.xz",
             "sha256": "59912db536ab56a3996489ea0299768c7bcffe57169f0235e7f962a91f483590",
