@@ -6,6 +6,8 @@ class PythonFormula(Formula):
     latest = "3.14.0"
     build_system = "autoconf"
 
+    dependencies = ["bzip2"]
+    
     versions = {
         "3.14.0": {
             "url": "https://www.python.org/ftp/python/3.14.6/Python-3.14.6.tar.xz",
