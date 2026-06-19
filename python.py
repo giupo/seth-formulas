@@ -6,7 +6,7 @@ class PythonFormula(Formula):
     latest = "3.14.0"
     build_system = "autoconf"
 
-    dependencies = ["bzip2"]
+    dependencies = ["bzip2", "xz", "libztsd", "util-linux"]
     
     versions = {
         "3.14.0": {
