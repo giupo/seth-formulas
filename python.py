@@ -4,9 +4,8 @@ from seth.formula import Formula
 class PythonFormula(Formula):
     name = "python"
     latest = "3.14.0"
-    build_system = "autoconf"
-
-    dependencies = ["bzip2", "xz", "libztsd", "util-linux"]
+ 
+    dependencies = ["bzip2", "xz", "libztsd", "libffi"]
     
     versions = {
         "3.14.0": {
@@ -16,13 +15,13 @@ class PythonFormula(Formula):
     }
 
     def configure_args(self):
-         return [
-             f"--prefix={self.keg}",
-             "--enable-optimizations",
-             "--with-lto",
-         ]
+        return [
+            f"--prefix={self.keg}",
+            "--enable-optimizations",
+            "--with-lto",
+        ]
 
     def make_args(self):
-         return [
-             "PROFILE_TASK='-m test --pgo --timeout=$(TESTTIMEOUT) -x test_json'",
-         ]
+        return [
+            "PROFILE_TASK='-m test --pgo --timeout=$(TESTTIMEOUT) -x test_json'",
+        ]
