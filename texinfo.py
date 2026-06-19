@@ -1,18 +1,18 @@
 from seth.formula import Formula
 from seth.types import BuildType
 
-class LibffiFormula(Formula):
-    name = "libffi"
-    latest = "3.5.2"
+class TexinfoFormula(Formula):
+    name = "texinfo"
+    latest = "7.3"
 
     # dependencies = []
     # build_dependencies = []
-    build_system = BuildType.AUTOGEN
+    # build_system = BuildType.AUTOCONF
     
     versions = {
-        "3.5.2": {
-            "url": "https://github.com/libffi/libffi/archive/refs/tags/v3.5.2.tar.gz",
-            "sha256": "dd19253d3007f366319a51d248a40c9e5fcace4498cbea990b566291844e4e30",
+        "7.3": {
+            "url": "https://ftp.gnu.org/gnu/texinfo/texinfo-7.3.tar.gz",
+            "sha256": "4fc30d71e00416f0b4884994f1db9db2901f03603f8e69d92dd46fa018d998d7",
         },
     }
 
@@ -25,11 +25,9 @@ class LibffiFormula(Formula):
     # def configure_args(self) -> list[str]:
     #    return [f"--prefix={self.keg}"] + self.extra_configure_args
 
-    def make_args(self) -> list[str]:
-        """Variables/flags appended to every `make` invocation (e.g. CFLAGS=-O2)."""
-        return [
-            "MAKEINFO=true", # don't bother me with makeinfo, please
-        ]
+    # def make_args(self) -> list[str]:
+    #    """Variables/flags appended to every `make` invocation (e.g. CFLAGS=-O2)."""
+    #     return self.extra_make_args
 
     # def cmake_args(self) -> list[str]:
     #    return [f"-DCMAKE_INSTALL_PREFIX={self.keg}"] + self.extra_configure_args
