@@ -19,3 +19,8 @@ class PythonFormula(Formula):
              "--enable-optimizations",
              "--with-lto",
          ]
+
+    def make_args(self):
+         return [
+             "PROFILE_TASK='-m test --pgo --timeout=$(TESTTIMEOUT) -x test_json'",
+         ]
