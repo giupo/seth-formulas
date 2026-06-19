@@ -8,6 +8,7 @@ class GlibFormula(Formula):
     latest = "2.89.0"
     build_system = "meson"
     build_dependencies = ["ninja"]    
+
     versions = {
         "2.89.0": {
             "url": "https://download.gnome.org/sources/glib/2.89/glib-2.89.0.tar.xz",
