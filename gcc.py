@@ -39,7 +39,7 @@ class GccFormula(Formula):
             # --enable-host-shared is REQUIRED: it makes the compiler
             # itself position-independent, which is a prerequisite for
             # building libgccjit as a shared library.
-            "--enable-languages=c,c++,jit",
+            "--enable-languages=c,c++,fortran,jit",
             "--enable-host-shared",
             "--disable-multilib",       # 64-bit only, no 32-bit compat
             "--disable-bootstrap",      # single-stage build (uses system gcc)
