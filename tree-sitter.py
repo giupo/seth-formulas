@@ -15,9 +15,10 @@ class TreeSitterFormula(Formula):
             "sha256": "8e14780500933f43d86662fcaa1b0ce99ebe9c220f4680bc929dce09a0e0cfc6",
         },
         "0.25.10": {
-            "url": "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.25.10.tar.gz"
-            "sha256": "",
+            "url": "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v0.25.10.tar.gz",
+            "sha256": "ad5040537537012b16ef6e1210a572b927c7cdc2b99d1ee88d44a7dcdc3ff44c",
         }
+    }
 
     # def configure_args(self):
     #     return [

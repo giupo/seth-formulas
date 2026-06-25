@@ -19,8 +19,7 @@ class TmuxFormula(Formula):
 
     def configure_args(self):
         from seth.config import config
-        from seth import cellar
-        libevent_ver = cellar.linked_version("libevent") or ""
+        libevent_ver = self.direct_deps.get("libevent", "")
         libevent_prefix = config.cellar / "libevent" / libevent_ver
         return [
             f"--prefix={self.keg}",

@@ -15,8 +15,7 @@ class LibeventFormula(Formula):
 
     def configure_args(self):
         from seth.config import config
-        from seth import cellar
-        openssl_ver = cellar.linked_version("openssl") or ""
+        openssl_ver = self.direct_deps.get("openssl", "")
         openssl_prefix = config.cellar / "openssl" / openssl_ver
         return [
             f"--prefix={self.keg}",

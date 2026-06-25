@@ -19,15 +19,14 @@ class PerlFormula(Formula):
 
     def build(self, source_dir):
         from seth.config import config
-        from seth import cellar as cel
 
         nproc = os.cpu_count() or 1
-        zlib_ver = cel.linked_version("zlib") or ""
+        zlib_ver = self.direct_deps.get("zlib", "")
         zlib_keg = config.cellar / "zlib" / zlib_ver
 
         def run(cmd, cwd=source_dir, extra_env=None):
             from seth.builder import get_build_env
-            env = get_build_env()
+            env = get_build_env(self.direct_deps)
             if extra_env:
                 env.update(extra_env)
             print(f"  [run] {' '.join(str(c) for c in cmd)}")

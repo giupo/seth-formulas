@@ -20,8 +20,7 @@ class Libssh2Formula(Formula):
 
     def cmake_args(self):
         from seth.config import config
-        from seth import cellar
-        openssl_ver = cellar.linked_version("openssl") or ""
+        openssl_ver = self.direct_deps.get("openssl", "")
         openssl_root = config.cellar / "openssl" / openssl_ver
         return [
             f"-DCMAKE_INSTALL_PREFIX={self.keg}",

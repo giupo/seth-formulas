@@ -21,13 +21,12 @@ class GccFormula(Formula):
     def build(self, source_dir):
         from seth.builder import get_build_env
         from seth.config import config
-        from seth import cellar as cel
 
-        env = get_build_env()
+        env = get_build_env(self.direct_deps)
         nproc = os.cpu_count() or 1
 
         def keg_of(name):
-            ver = cel.linked_version(name) or ""
+            ver = self.direct_deps.get(name, "")
             return config.cellar / name / ver
 
         # GCC must be configured and built outside the source tree.
