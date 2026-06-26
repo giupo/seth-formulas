@@ -1,18 +1,18 @@
 from seth.formula import Formula
 from seth.types import BuildType
 
-class NeovimFormula(Formula):
-    name = "neovim"
-    latest = "0.12.3"
+class LuarocksFormula(Formula):
+    name = "luarocks"
+    latest = "3.12.2"
 
-    dependencies = ["luarocks", "lazygit", "fzf"]
+    dependencies = ["lua<5.2"]
     # build_dependencies = []
-    build_system = BuildType.MAKE
+    # build_system = BuildType.AUTOCONF
 
     versions = {
-        "0.12.3": {
-            "url": "https://github.com/neovim/neovim/archive/refs/tags/v0.12.3.tar.gz",
-            "sha256": "36a6c66bfbba5d96fa512110aecddb981148a4d013b5ecd01a42877c49855a41",
+        "3.12.2": {
+            "url": "https://luarocks.github.io/luarocks/releases/luarocks-3.12.2.tar.gz",
+            "sha256": "b0e0c85205841ddd7be485f53d6125766d18a81d226588d2366931e9a1484492",
         },
     }
 
@@ -25,12 +25,9 @@ class NeovimFormula(Formula):
     # def configure_args(self) -> list[str]:
     #    return [f"--prefix={self.keg}"] + self.extra_configure_args
 
-    def make_args(self) -> list[str]:
-        """Variables/flags appended to every `make` invocation (e.g. CFLAGS=-O2)."""
-        return [
-	    f"CMAKE_INSTALL_PREFIX={self.keg}",
-            "CMAKE_BUILD_TYPE=Release",
-	] + self.extra_make_args
+    # def make_args(self) -> list[str]:
+    #    """Variables/flags appended to every `make` invocation (e.g. CFLAGS=-O2)."""
+    #     return self.extra_make_args
 
     # def cmake_args(self) -> list[str]:
     #    return [f"-DCMAKE_INSTALL_PREFIX={self.keg}"] + self.extra_configure_args
