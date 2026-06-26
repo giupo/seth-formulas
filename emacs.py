@@ -5,7 +5,7 @@ class EmacsFormula(Formula):
     name = "emacs"
     latest = "30.2"
     # gcc is among deps 'case it's needed for libgccjit
-    dependencies = ["ncurses", "libxml2", "gnutls", "zlib", "gcc", "imagemagick", "tree-sitter"]
+    dependencies = ["ncurses", "libxml2", "gnutls", "zlib", "gcc", "imagemagick", "tree-sitter<0.26.0"]
     build_dependencies = ["pkgconfig"]
 
     versions = {
