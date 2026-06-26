@@ -5,7 +5,7 @@ class LibffiFormula(Formula):
     name = "libffi"
     latest = "3.5.2"
 
-    # dependencies = []
+    dependencies = ["texinfo"]
     # build_dependencies = []
     build_system = BuildType.AUTOGEN
     
