@@ -38,15 +38,15 @@ class PandocFormula(Formula):
     # def patch(self, source_dir: Path):
     #     """Override for programmatic source modifications applied before build."""
 
-    def build(self, source_dir:Path):
+    def build(self, source_dir):
         from pathlib import Path
         import shutil
-        src = source_dir / "pandoc-3.10"
-	dst = self.keg
+        src = source_dir
+        dst = self.keg
         dst.mkdir(parents=True, exist_ok=True)
 
         for item in src.iterdir():
-            target = dest_dir / item.name
+            target = dst / item.name
             if item.is_dir():
                 shutil.copytree(item, target, dirs_exist_ok=True)
             else:
