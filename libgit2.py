@@ -5,7 +5,7 @@ class Libgit2Formula(Formula):
     name = "libgit2"
     latest = "1.9.4"
 
-    dependencies = ["openssl", "libssh2"]
+    dependencies = ["openssl", "libssh2", "pcre2"]
     # build_dependencies = []
     build_system = BuildType.CMAKE
 
@@ -32,10 +32,11 @@ class Libgit2Formula(Formula):
     def cmake_args(self) -> list[str]:
         return [
             f"-DCMAKE_INSTALL_PREFIX={self.keg}",
-            "-DBUILD_EXAMPLES=ON"
+            # "-DBUILD_EXAMPLES=ON",
             "-DUSE_SSH=ON",
             "-DUSE_HTTPS=ON",
             "-DUSE_GSSAPI=ON",
+            "-DREGEX_BACKEND=pcre2",
         ] + self.extra_configure_args
 
     # def meson_args(self) -> list[str]:

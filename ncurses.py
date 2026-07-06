@@ -29,6 +29,22 @@ class NcursesFormula(Formula):
             f"--with-pkg-config-libdir={self.keg}/lib/pkgconfig",
             "--disable-stripping",      # let the linker strip if needed
             "--enable-symlinks",
+            # GCC 14+ made implicit-function-declaration a hard error in every
+            # -std mode (not just C23), which breaks ncurses' old K&R-style
+            # configure checks/sources. -std=c99 does NOT fix this (verified);
+            # only downgrading the diagnostic itself does.
+            #
+            # Also force pre-C23 dialect: GCC's default dialect is now C23,
+            # where `bool` is a native keyword. ncurses' configure probes the
+            # *C* compiler for a builtin bool without including <stdbool.h>;
+            # under C23 that probe wrongly succeeds, so configure assumes "C
+            # has bool" and disables the logic that makes the C++ binding use
+            # the real C++ bool. The result is `#define bool NCURSES_BOOL`
+            # (unsigned char) leaking into the C++ binding sources, which
+            # breaks libstdc++'s C++20 concepts (same_as, is_object_v, ...)
+            # when building c++/cursesapp.cc etc. -std=gnu17 restores the
+            # pre-C23 probe result.
+            "CFLAGS=-std=gnu17 -Wno-implicit-function-declaration",
         ]
 
     def post_install(self):
