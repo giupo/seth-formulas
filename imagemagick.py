@@ -9,8 +9,8 @@ class ImagemagickFormula(Formula):
 
     versions = {
         "7.1.2-25": {
-            "url": "https://imagemagick.org/archive/ImageMagick-7.1.2-25.tar.gz",
-            "sha256": "c4ce2d982fbedf0347aeca804326308311d767c8da6a69e91ed39371f8de137b"
+            "url": "https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.2-25.tar.gz",
+            "sha256": "ff33d227d2e1744327280e956ec9f7abaebbd8f48277d16cdad906e05e4794b6"
         },
     }
 
