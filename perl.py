@@ -1,5 +1,4 @@
 import os
-import subprocess
 
 from seth.formula import Formula
 
@@ -18,24 +17,12 @@ class PerlFormula(Formula):
     }
 
     def build(self, source_dir):
+        from seth.builder import get_build_env, run
         from seth.config import config
 
         nproc = os.cpu_count() or 1
         zlib_ver = self.direct_deps.get("zlib", "")
         zlib_keg = config.cellar / "zlib" / zlib_ver
-
-        def run(cmd, cwd=source_dir, extra_env=None):
-            from seth.builder import get_build_env
-            env = get_build_env(self.direct_deps)
-            if extra_env:
-                env.update(extra_env)
-            print(f"  [run] {' '.join(str(c) for c in cmd)}")
-            print(f"        (cwd: {cwd})")
-            r = subprocess.run(cmd, cwd=cwd, env=env)
-            if r.returncode != 0:
-                raise RuntimeError(
-                    f"Command failed (exit {r.returncode}): {' '.join(str(c) for c in cmd)}"
-                )
 
         configure_args = [
             "-des",
@@ -58,9 +45,8 @@ class PerlFormula(Formula):
 
         # Configure is a perl/shell script; LC_ALL=C avoids locale-related
         # surprises in the probe output parsing.
-        run(
-            ["sh", "Configure"] + configure_args,
-            extra_env={"LC_ALL": "C", "LANG": "C"},
-        )
-        run(["make", f"-j{nproc}"])
-        run(["make", "install"])
+        env = get_build_env(self.direct_deps)
+        env.update({"LC_ALL": "C", "LANG": "C"})
+        run(["sh", "Configure"] + configure_args, cwd=source_dir, env=env)
+        run(["make", f"-j{nproc}"], cwd=source_dir, env=env)
+        run(["make", "install"], cwd=source_dir, env=env)

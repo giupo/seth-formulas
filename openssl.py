@@ -1,7 +1,5 @@
 import os
-import subprocess
 
-from seth import colors as col
 from seth.formula import Formula
 
 
@@ -28,16 +26,8 @@ class OpenSSLFormula(Formula):
     def build(self, source_dir):
         nproc = os.cpu_count() or 1
 
-        from seth.builder import get_build_env
+        from seth.builder import get_build_env, run
         env = get_build_env()
-
-        def run(cmd):
-            cmd_str = " ".join(str(c) for c in cmd)
-            print(f"  {col.tag('run')}{col.dim(cmd_str)}")
-            print(f"  {' ' * 11}{col.dim(f'(cwd: {source_dir})')}")
-            r = subprocess.run(cmd, cwd=source_dir, env=env)
-            if r.returncode != 0:
-                raise RuntimeError(f"Command failed: {cmd_str}")
 
         run([
             "./Configure",
@@ -46,6 +36,6 @@ class OpenSSLFormula(Formula):
             "linux-x86_64",
             "shared",
             "zlib",
-        ])
-        run(["make", f"-j{nproc}"])
-        run(["make", "install_sw"])
+        ], cwd=source_dir, env=env)
+        run(["make", f"-j{nproc}"], cwd=source_dir, env=env)
+        run(["make", "install_sw"], cwd=source_dir, env=env)

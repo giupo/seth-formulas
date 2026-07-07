@@ -7,7 +7,7 @@ class GlibFormula(Formula):
     name = "glib"
     latest = "2.89.0"
     build_system = "meson"
-    build_dependencies = ["ninja"]    
+    build_dependencies = ["ninja", "meson"]    
     dependencies = ["perl", "pcre2"]
     versions = {
         "2.89.0": {

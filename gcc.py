@@ -1,7 +1,5 @@
 import os
-import subprocess
 
-from seth import colors as col
 from seth.formula import Formula
 
 
@@ -19,7 +17,7 @@ class GccFormula(Formula):
     }
 
     def build(self, source_dir):
-        from seth.builder import get_build_env
+        from seth.builder import get_build_env, run
         from seth.config import config
 
         env = get_build_env(self.direct_deps)
@@ -50,16 +48,6 @@ class GccFormula(Formula):
             f"--with-mpc={keg_of('mpc')}",
         ]
 
-        def run(cmd, cwd=build_dir):
-            cmd_str = " ".join(str(c) for c in cmd)
-            print(f"  {col.tag('run')}{col.dim(cmd_str)}")
-            print(f"  {' ' * 11}{col.dim(f'(cwd: {cwd})')}")
-            r = subprocess.run(cmd, cwd=cwd, env=env)
-            if r.returncode != 0:
-                raise RuntimeError(
-                    f"Command failed (exit {r.returncode}): {cmd_str}"
-                )
-
-        run([str(source_dir / "configure")] + configure_args)
-        run(["make", f"-j{nproc}"])
-        run(["make", "install"])
+        run([str(source_dir / "configure")] + configure_args, cwd=build_dir, env=env)
+        run(["make", f"-j{nproc}"], cwd=build_dir, env=env)
+        run(["make", "install"], cwd=build_dir, env=env)
