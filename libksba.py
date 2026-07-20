@@ -1,0 +1,46 @@
+from seth.formula import Formula
+from seth.types import BuildType
+
+class LibksbaFormula(Formula):
+    name = "libksba"
+    latest = "1.8.0"
+
+    # dependencies = []
+    # build_dependencies = []
+    # build_system = BuildType.AUTOCONF
+
+    versions = {
+        "1.8.0": {
+            "url": "https://www.gnupg.org/ftp/gcrypt/libksba/libksba-1.8.0.tar.bz2",
+            "sha256": "296b9db9095749f2aa104202d7ab7fd09ad10710e00780a709c9754b1a1d9292",
+        },
+    }
+
+    # def configure_args(self) -> list[str]:
+    #     return [
+    #         f"--prefix={self.keg}",
+    #         "--enable-shared",
+    #     ]
+
+    # def configure_args(self) -> list[str]:
+    #     return [f"--prefix={self.keg}"] + self.extra_configure_args
+
+    # def make_args(self) -> list[str]:
+    #     """Variables/flags appended to every `make` invocation (e.g. CFLAGS=-O2)."""
+    #     return self.extra_make_args
+
+    # def cmake_args(self) -> list[str]:
+    #     return [f"-DCMAKE_INSTALL_PREFIX={self.keg}"] + self.extra_configure_args
+
+    # def meson_args(self) -> list[str]:
+    #     return [f"--prefix={self.keg}"] + self.extra_configure_args
+
+    # def patch(self, source_dir: Path):
+    #     """Override for programmatic source modifications applied before build."""
+
+    # def build(self, source_dir:Path):
+    #     pass
+
+    # def post_install(self):
+    #     pass
+

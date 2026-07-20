@@ -34,6 +34,7 @@ class LuaFormula(Formula):
         return [
             "linux",
             f"INSTALL_TOP={self.keg}",
+            "--shared"
         ] + self.extra_make_args
 
     # def cmake_args(self) -> list[str]:
