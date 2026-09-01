@@ -12,7 +12,11 @@ class EmacsFormula(Formula):
         "30.2": {
             "url": "https://ftp.gnu.org/gnu/emacs/emacs-30.2.tar.gz",
             "sha256": "1d79a4ba4d6596f302a7146843fe59cf5caec798190bcc07c907e7ba244b076d",
-        },
+        }, 
+        "31.1": {
+            "url": "https://www.nic.funet.fi/pub/gnu/ftp.gnu.org/pub/gnu/emacs/emacs-31.1.tar.xz",
+            "sha256": "cazzo"
+        }
     }
 
     def configure_args(self):
