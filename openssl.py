@@ -1,6 +1,18 @@
 import os
 
+from pathlib import Path
+
 from seth.formula import Formula
+
+# --openssldir gives this keg an empty trust store (install_sw doesn't
+# populate it), so every tool linked against it fails all TLS verification.
+# Point cert.pem at the distro's CA bundle instead of vendoring one.
+_SYSTEM_CA_BUNDLES = [
+    "/etc/pki/tls/certs/ca-bundle.crt",   # RHEL/CentOS/Fedora
+    "/etc/ssl/certs/ca-bundle.crt",       # RHEL/CentOS/Fedora (alt path)
+    "/etc/ssl/cert.pem",                  # Debian/Ubuntu/Alpine
+    "/etc/ssl/ca-bundle.pem",             # SUSE
+]
 
 
 class OpenSSLFormula(Formula):
@@ -39,3 +51,16 @@ class OpenSSLFormula(Formula):
         ], cwd=source_dir, env=env)
         run(["make", f"-j{nproc}"], cwd=source_dir, env=env)
         run(["make", "install_sw"], cwd=source_dir, env=env)
+
+    def post_install(self):
+        bundle = next((p for p in _SYSTEM_CA_BUNDLES if Path(p).exists()), None)
+        if not bundle:
+            print(f"  warn: no system CA bundle found (looked in {_SYSTEM_CA_BUNDLES}); "
+                  f"TLS verification will fail for tools linked against this openssl")
+            return
+
+        ssl_dir = Path(self.keg) / "ssl"
+        ssl_dir.mkdir(parents=True, exist_ok=True)
+        cert_pem = ssl_dir / "cert.pem"
+        cert_pem.unlink(missing_ok=True)
+        cert_pem.symlink_to(bundle)
