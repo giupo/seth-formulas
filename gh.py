@@ -42,8 +42,11 @@ class GhFormula(Formula):
     def build(self, source_dir:Path):
         import shutil
         self.keg.mkdir(parents=True, exist_ok=True)
+        # for fuck sacke why leave LICENSE there?
+        license = source_dir / "LICENSE"
+        license.unlink()
         shutil.copytree(source_dir, self.keg, dirs_exist_ok=True)
-
+         
     # def post_install(self):
     #     pass
 
