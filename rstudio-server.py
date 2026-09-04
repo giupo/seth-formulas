@@ -84,6 +84,15 @@ if [ -z "$R_BIN" ]; then
   exit 1
 fi
 
+# rserver spawns rsession with a minimal LD_LIBRARY_PATH (just $R_HOME/lib),
+# but R's own launcher script computes a fuller one from $R_HOME/etc/ldpaths
+# (e.g. it includes an MKL/OpenBLAS deps dir on builds that use one). Without
+# it rsession dlopen()-fails on libR.so's own dependencies and crashes on
+# every launch -- which just looks like "R is taking longer than usual" in
+# the browser, forever. Ask R itself for the LD_LIBRARY_PATH it would use, so
+# this works for whatever R is pointed at instead of hardcoding a BLAS path.
+R_LD_LIBRARY_PATH="$("$R_BIN" --vanilla -s -e 'cat(Sys.getenv("LD_LIBRARY_PATH"))' 2>/dev/null || true)"
+
 PORT="${RSTUDIO_PORT:-8787}"
 ARGS=(
   --server-user="$(id -un)"
@@ -101,6 +110,12 @@ case " $* " in
   *" --www-port="*|*" --www-port "*) ;;
   *) ARGS+=(--www-port="$PORT") ;;
 esac
+if [ -n "$R_LD_LIBRARY_PATH" ]; then
+  case " $* " in
+    *" --rsession-ld-library-path="*|*" --rsession-ld-library-path "*) ;;
+    *) ARGS+=(--rsession-ld-library-path="$R_LD_LIBRARY_PATH") ;;
+  esac
+fi
 
 # rserver hardcodes /var/lib/rstudio-server as its SQLite state directory;
 # no --server-data-dir/env override reaches it (verified empirically against
